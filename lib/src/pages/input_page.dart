@@ -9,10 +9,13 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  String _name='';
-  String _email='';
-  String _password = '';
+  String _name = '';
+  String _email = '';
   String _date = '';
+
+  String _optionSelected = 'fly';
+
+  List<String> _powers = ['fly', 'X Ray', 'Super breath', 'Super strength'];
   TextEditingController _inputFieldDateController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -32,6 +35,8 @@ class _InputPageState extends State<InputPage> {
           Divider(),
           _createDate(context),
           Divider(),
+          _createDropdown(),
+          Divider(),
           _createPerson(),
         ],
       ),
@@ -50,59 +55,56 @@ class _InputPageState extends State<InputPage> {
             labelText: 'Name',
             helperText: 'Only name',
             suffixIcon: Icon(Icons.accessibility),
-            icon: Icon(Icons.account_circle)
-        ),
+            icon: Icon(Icons.account_circle)),
         onChanged: (value) => setState(() {
               _name = value;
-        })
-    );
+            }));
   }
 
   Widget _createPerson() {
     return ListTile(
       title: Text('Name is: $_name'),
       subtitle: Text('Email: $_email'),
+      trailing: Text(_optionSelected),
     );
   }
 
   Widget _createEmail() {
     return TextField(
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          hintText: 'Email',
-          labelText: 'Email',
-          suffixIcon: Icon(Icons.alternate_email),
-          icon: Icon(Icons.email)),
-      onChanged: (value) => setState(() {
+        keyboardType: TextInputType.emailAddress,
+        decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            hintText: 'Email',
+            labelText: 'Email',
+            suffixIcon: Icon(Icons.alternate_email),
+            icon: Icon(Icons.email)),
+        onChanged: (value) => setState(() {
               _email = value;
-      })
-    );
+            }));
   }
 
   Widget _createPassword() {
     return TextField(
-      obscureText: true,
-      decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          hintText: 'Password',
-          labelText: 'Pasword',
-          suffixIcon: Icon(Icons.lock_open),
-          icon: Icon(Icons.lock)),
-      onChanged: (value) => setState(() {
-              _password = value;
-      })
-    );
+        obscureText: true,
+        decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            hintText: 'Password',
+            labelText: 'Pasword',
+            suffixIcon: Icon(Icons.lock_open),
+            icon: Icon(Icons.lock)),
+        onChanged: (value) => setState(() {
+              
+            }));
   }
 
- Widget _createDate(BuildContext context) {
-   return TextField(
-     enableInteractiveSelection: false,
-     controller: _inputFieldDateController,
+  Widget _createDate(BuildContext context) {
+    return TextField(
+      enableInteractiveSelection: false,
+      controller: _inputFieldDateController,
       decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.0),
@@ -111,27 +113,61 @@ class _InputPageState extends State<InputPage> {
           labelText: 'Birthdate',
           suffixIcon: Icon(Icons.perm_contact_calendar),
           icon: Icon(Icons.calendar_today)),
-          onTap: () {
-            FocusScope.of(context).requestFocus(new FocusNode());
-            _selectDate(context);
-          },
+      onTap: () {
+        FocusScope.of(context).requestFocus(new FocusNode());
+        _selectDate(context);
+      },
     );
- }
+  }
 
-  void _selectDate(BuildContext context) async  {
+  void _selectDate(BuildContext context) async {
     DateTime picked = await showDatePicker(
-      context: context, 
-      initialDate: new DateTime.now(), 
-      firstDate: new DateTime(2018), 
-      lastDate: new DateTime(2025),
-      locale: Locale('en','US')
-      );
+        context: context,
+        initialDate: new DateTime.now(),
+        firstDate: new DateTime(2018),
+        lastDate: new DateTime(2025),
+        locale: Locale('en', 'US'));
 
-      if (picked!=null) {
-        setState(() {
-          _date = picked.toString();
-          _inputFieldDateController.text = _date.split(' ')[0];
-        });
-      }
+    if (picked != null) {
+      setState(() {
+        _date = picked.toString();
+        _inputFieldDateController.text = _date.split(' ')[0];
+      });
+    }
+  }
+
+  List<DropdownMenuItem<String>> getOptionsDropdown() {
+    List<DropdownMenuItem<String>> list = new List();
+    _powers.forEach((power) {
+      list.add(DropdownMenuItem(
+        child: Text(power),
+        value: power,
+      ));
+    });
+
+    return list;
+  }
+
+  Widget _createDropdown() {
+    return Row(
+      children: <Widget>[
+        Icon(Icons.select_all),
+        SizedBox(width: 30.0),
+        Expanded(
+          
+          child: DropdownButton(
+            elevation: 16,
+            isExpanded: true,
+            value: _optionSelected,
+            items: getOptionsDropdown(),
+            onChanged: (opt) {
+              setState(() {
+                _optionSelected = opt;
+              });
+            },
+          ),
+        )
+      ],
+    );
   }
 }
