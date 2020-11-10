@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:components/src/utils/global_util.dart';
 
 class CardPage extends StatelessWidget {
   @override
@@ -6,6 +7,7 @@ class CardPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Cards'),
+        backgroundColor: Color(colorApplication),
       ),
       body: ListView(
         padding: EdgeInsets.all(10.0),
@@ -13,6 +15,23 @@ class CardPage extends StatelessWidget {
           _cardType1(),
           SizedBox(height: 30.0),
           _cardType2(),
+          SizedBox(height: 30.0),
+          _cardType1(),
+          SizedBox(height: 30.0),
+          _cardType2(),
+          SizedBox(height: 30.0),
+          _cardType1(),
+          SizedBox(height: 30.0),
+          _cardType2(),
+          SizedBox(height: 30.0),
+          _cardType1(),
+          SizedBox(height: 30.0),
+          _cardType2(),
+          SizedBox(height: 30.0),
+          _cardType1(),
+          SizedBox(height: 30.0),
+          _cardType2(),
+          SizedBox(height: 30.0)
         ],
       ),
     );
@@ -20,10 +39,12 @@ class CardPage extends StatelessWidget {
 
   Widget _cardType1() {
     return Card(
+      elevation: 10.0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       child: Column(
         children: <Widget>[
           ListTile(
-            leading: Icon(Icons.photo_album, color: Colors.blue),
+            leading: Icon(Icons.photo_album, color: Color(colorApplication)),
             title: Text('Card Title'),
             subtitle: Text('Card Subtitle'),
           ),
@@ -47,6 +68,9 @@ class CardPage extends StatelessWidget {
 
   Widget _cardType2() {
     return Card(
+      elevation: 10.0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+      clipBehavior: Clip.antiAlias,
       child: Column(
         children: <Widget>[
           FadeInImage(

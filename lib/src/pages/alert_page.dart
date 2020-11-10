@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:components/src/utils/global_util.dart';
 
 class AlertPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Alert Page')),
+      appBar: AppBar(
+          title: Text('Alert Page'), backgroundColor: Color(colorApplication)),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add_location),
         onPressed: () {

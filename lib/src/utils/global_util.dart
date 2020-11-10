@@ -1,0 +1,1 @@
+final int colorApplication = 0xFFA0DE59;

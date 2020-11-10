@@ -1,6 +1,7 @@
-import 'package:components/src/pages/alert_page.dart';
+
 import 'package:components/src/providers/menu_provider.dart';
 import 'package:components/src/utils/icon_string_util.dart';
+import 'package:components/src/utils/global_util.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -9,6 +10,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Componets'),
+        backgroundColor: Color(colorApplication)
       ),
       body: _list(),
     );
@@ -33,7 +35,7 @@ class HomePage extends StatelessWidget {
       final widgetTemp = ListTile(
         title: Text(opt['text']),
         leading: getIcon(opt['icon']),
-        trailing: Icon(Icons.keyboard_arrow_right, color: Colors.blue),
+        trailing: Icon(Icons.keyboard_arrow_right, color: Color(colorApplication)),
         onTap: () {
           Navigator.pushNamed(context, opt['route']);
         },
